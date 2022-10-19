@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> 新建用户 </h3>
+            </div>
+            <div class="panel-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label>{{ field.label }} : </label>
+                            {{ field }}
+                            <span style="color: #ff0000">{{ field.errors.0 }}</span>
+                        </div>
+
+                    {% endfor %}
+                    {#                    { form.name.label }}:{{ form.name }}#}
+                    {#                    {{ form.password.label }}:{{ form.password }}#}
+                    {#                    {{ form.age.label }}:{{ form.age }}#}
+                    <button type="submit" class="btn btn-primary">确认</button>
+                    <a type="button" class="btn btn-primary" href="/user/list/">取消</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#id_create_time').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: 0,
+                language: 'zh-CN',
+                autoclose: true
+            });
+        });
+    </script>
+{% endblock %}
