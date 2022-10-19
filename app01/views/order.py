@@ -28,7 +28,7 @@ def order_list(request):
         "search_data": oid,
         "page_string": page_string
     }
-    return render(request, "order_list2.html", context)
+    return render(request, "order_list.html", context)
 
 
 @csrf_exempt
