@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from app01 import models
 from app01.utils.pagination import Pagination
 from app01.utils.form import OrderInfoModelForm
-from PycharmProjects/StudyDjango/mypractice/
+
 
 def order_list(request):
     form_list = OrderInfoModelForm()
