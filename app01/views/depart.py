@@ -1,5 +1,6 @@
 from app01 import models
 from app01.utils.pagination import Pagination
+
 from django.shortcuts import render, redirect
 from app01.utils.form import DepartModelForm
 
