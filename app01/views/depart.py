@@ -1,7 +1,9 @@
+from openpyxl import load_workbook
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
+
 from app01 import models
 from app01.utils.pagination import Pagination
-
-from django.shortcuts import render, redirect
 from app01.utils.form import DepartModelForm
 
 
@@ -50,3 +52,10 @@ def depart_edit(request, nid):
         new_title = request.POST.get("title")
         models.Department.objects.filter(id=nid).update(title=new_title)
         return redirect("/depart/list/")
+
+
+@csrf_exempt
+def depart_multi(request):
+    """ 批量删除 """
+    file_object = request.FILES.get("exc")
+    print(type(file_object))
