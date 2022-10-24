@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 
 from app01 import models
 from app01.utils.pagination import Pagination
@@ -59,3 +59,6 @@ def depart_multi(request):
     """ 批量删除 """
     file_object = request.FILES.get("exc")
     print(type(file_object))
+    work_book_object = load_workbook("文件路径")
+
+    return HttpResponse("")
