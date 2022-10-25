@@ -59,6 +59,10 @@ def depart_multi(request):
     """ 批量删除 """
     file_object = request.FILES.get("exc")
     print(type(file_object))
+    print(file_object.name)
     work_book_object = load_workbook("文件路径")
-
-    return HttpResponse("")
+    f = open(file_object.name, mode='wb')
+    for chunk in file_object.chunk():
+        f.write(chunk)
+    f.close()
+    return HttpResponse("...")
