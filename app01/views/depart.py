@@ -1,6 +1,7 @@
 from openpyxl import load_workbook
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, HttpResponse
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from app01 import models
 from app01.utils.pagination import Pagination
@@ -57,12 +58,20 @@ def depart_edit(request, nid):
 @csrf_exempt
 def depart_multi(request):
     """ 批量删除 """
+    # 获取用户上传文件对象
     file_object = request.FILES.get("exc")
-    print(type(file_object))
-    print(file_object.name)
-    work_book_object = load_workbook("文件路径")
-    f = open(file_object.name, mode='wb')
-    for chunk in file_object.chunk():
-        f.write(chunk)
-    f.close()
-    return HttpResponse("...")
+    if not file_object:
+        return HttpResponse("未上传文件")
+    # 对象传递给openpyxl ，由openpyxl 读取文件内容
+    wb = load_workbook(file_object)
+    sheet = wb.worksheets[0]
+    # 循环获取
+    # cell = sheet.cell(1, 1)
+    # print(cell.value)
+    for row in sheet.iter_rows(min_row=2):
+        text = row[0].value
+        exits = models.Department.objects.filter(title=text).exists()
+        if not exits:
+            models.Department.objects.create(title=text)
+            print(text)
+    return redirect("/depart/list/")

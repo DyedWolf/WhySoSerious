@@ -1,4 +1,4 @@
-from app01.utils.bootstrap import BootStrapModelForm
+from app01.utils.bootstrap import BootStrapModelForm, BootStrapForm
 from app01 import models
 from app01.utils.enctypt import md5
 from django import forms
@@ -155,3 +155,16 @@ class OrderInfoModelForm(BootStrapModelForm):
     class Meta:
         model = models.OrderInfo
         exclude = ['oid', 'admin']
+
+
+class UpForm(BootStrapForm):
+    bootstrap_exclude_files = ["img"]
+    name = forms.CharField(label="姓名")
+    age = forms.IntegerField(label="年龄")
+    img = forms.FileField(label="头像")
+
+
+class UpModelForm(BootStrapModelForm):
+    class Meta:
+        model = models.City
+        fields = "__all__"
