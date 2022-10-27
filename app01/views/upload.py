@@ -4,10 +4,11 @@ from django.conf import settings
 from django.shortcuts import render, HttpResponse, redirect
 
 from app01 import models
-from app01.utils.form import UpForm, UpModelForm
+from app01.utils.form import UpForm, UpModelForm, CityModelForm
 
 
 def upload_list(request):
+    """文件操作例子"""
     if request.method == 'GET':
         return render(request, "upload_list.html")
     # print(request.FILES)
@@ -22,6 +23,7 @@ def upload_list(request):
 
 
 def upload_form(request):
+    """Form上传文件和数据"""
     title = "Form上传"
     if request.method == "GET":
         form = UpForm()
@@ -49,10 +51,10 @@ def upload_modal_form(request):
     """上传文件和数据"""
     title = "ModelForm上传文件和数据"
     if request.method == "GET":
-        form = UpModelForm()
+        form = CityModelForm()
         return render(request, "upload_model_form.html", {"form": form, "title": title})
-    form = UpModelForm(request.POST, files=request.FILES)
+    form = CityModelForm(request.POST, files=request.FILES)
     if form.is_valid():
         form.save()
-        return HttpResponse("上传成功")
+        return redirect("/upload/model/form/")
     return render(request, "upload_model_form.html", {"form": form, "title": title})

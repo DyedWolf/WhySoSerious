@@ -168,3 +168,11 @@ class UpModelForm(BootStrapModelForm):
     class Meta:
         model = models.City
         fields = "__all__"
+
+
+class CityModelForm(BootStrapModelForm):
+    bootstrap_exclude_files = ["img"]
+
+    class Meta:
+        model = models.City
+        fields = "__all__"
